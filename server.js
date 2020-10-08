@@ -41,22 +41,17 @@ app.get("/stats", (req, res) => {
 
 app.get("/api/workouts", (req, res) => {
     db.Workout.find({})
-        .then((data) => {
-            res.json(data);
-        })
+        .then((data) => res.json(data))
         .catch((err) => res.status(500).send(err));
 });
 
 app.post("/api/workouts", (req, res) => {
     const workout = req.body;
     db.Workout.create(workout)
-        .then((data) => {
-            res.json(data[0]);
-        });
+        .then((data) => res.json(data));
 });
 
 app.put("/api/workouts/:id", (req, res) => {
-    console.log(req);
     const workout = req.body;
     const id = req.params.id;
     db.Workout.findByIdAndUpdate(id, { $push: { exercises: workout } })
