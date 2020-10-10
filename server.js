@@ -42,6 +42,16 @@ app.get("/api/workouts", (req, res) => {
         .catch((err) => res.status(500).send(err));
 });
 
+app.get("/api/workouts/range", (req, res) => {
+    db.Workout.find({}).limit(7)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
+
 app.post("/api/workouts", (req, res) => {
     const workout = req.body;
     db.Workout.create(workout)
